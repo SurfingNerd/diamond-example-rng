@@ -1,19 +1,28 @@
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { TestNFT, TestNFT__factory } from "../typechain";
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("NFT", function () {
+  let signers: SignerWithAddress[] | undefined;
+  let main: string = "";
+  let NFT: TestNFT__factory | undefined;
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+  before(async () => {
+    signers = await ethers.getSigners();
+    main = signers[0].address;
+    NFT = await ethers.getContractFactory("TestNFT");
+  });
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+  let nft: TestNFT | undefined;
 
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
+  it("deploy contract", async function () {
+    nft = await NFT?.deploy();
+    await nft?.deployed();
+  });
 
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+  it("mint increases nft count", async () => {
+    const mintTX = await nft?.mintTo(main);
+    // console.log("mintTX:", mintTX?.hash);
   });
 });

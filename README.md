@@ -1,3 +1,8 @@
+# Diamond Random Value Seeds
+
+One of the strengths of the Diamond Network is the cooperative consensus algorithm, that provide a random number as first transaction in each block, 
+and those random number is not predictable by the network validators.
+
 # Advanced Sample Hardhat Project
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
