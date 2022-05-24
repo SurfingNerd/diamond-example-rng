@@ -22,7 +22,10 @@ describe("NFT", function () {
   });
 
   it("mint increases nft count", async () => {
-    const mintTX = await nft?.mintTo(main);
+    if (nft) {
+      const mintTX = await nft.mintTo(main);
+    }
+
     // console.log("mintTX:", mintTX?.hash);
   });
 });
