@@ -8,13 +8,13 @@ import "./IRandomHbbft.sol";
 // The determinsticity 
 contract DummyRandomHbbft is IRandomHbbft {
 
-  function currentSeed() public view returns(uint256) {
+  function currentSeed() external override view returns(uint256) {
     // convert the block number to bytes32.
 
-    return uint256(keccak256(bytes32(block.number)));
+    return uint256(keccak256(abi.encode(block.number)));
   }
 
-  function get_seed_historic(uint256 block_number) public view returns(uint256) {
-    return uint256(keccak256(bytes32(block_number)));
+  function get_seed_historic(uint256 block_number) external override view returns(uint256) {
+    return uint256(keccak256(abi.encode((block_number))));
   }
  }

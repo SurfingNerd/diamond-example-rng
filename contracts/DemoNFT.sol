@@ -29,10 +29,8 @@ contract DemoNFT is ERC721 {
 
     IRandomHbbft private _random_hbbft;
 
-    constructor(random_hbbft_address) ERC721("TestNFT", "TST") {
+    constructor(address random_hbbft_address) ERC721("DemoNFT", "DEMO") {
         _random_hbbft = IRandomHbbft(random_hbbft_address);
-    }
-    ERC721("DemoNFT", "DEMO") {
     }
 
     function register_minting() public payable {
