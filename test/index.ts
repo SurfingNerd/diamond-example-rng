@@ -32,9 +32,7 @@ describe("NFT", function () {
 
   it("minting should fail if not registered", async () => {
     if (nft) {
-      await expect(nft.mintTo(main)).revertedWith(
-        "DemoNFT: minting not registered"
-      );
+      await expect(nft.mintTo(main)).revertedWith("minting not registered");
     }
 
     // console.log("mintTX:", mintTX?.hash);
@@ -43,7 +41,7 @@ describe("NFT", function () {
   it("registering minting should fail if not enough minting fee is provided.", async () => {
     if (nft) {
       await expect(nft.registerMinting(main)).revertedWith(
-        "DemoNFT: must send exact minting fee"
+        "must send exact minting fee"
       );
     }
     // console.log("mintTX:", mintTX?.hash);
@@ -60,7 +58,7 @@ describe("NFT", function () {
     if (nft) {
       await expect(
         nft.registerMinting(main, { value: ethers.utils.parseEther("1") })
-      ).revertedWith("DemoNFT: minting already registered");
+      ).revertedWith("minting already registered");
     }
     // console.log("mintTX:", mintTX?.hash);
   });

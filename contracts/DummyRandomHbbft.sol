@@ -15,12 +15,12 @@ contract DummyRandomHbbft is IRandomHbbft {
         return uint256(keccak256(abi.encode(block.number)));
     }
 
-    function get_seed_historic(uint256 block_number)
+    function getSeedHistoric(uint256 blockNumber)
         external
         pure
         override
         returns (uint256)
     {
-        return uint256(keccak256(abi.encode((block_number))));
+        return uint256(keccak256(abi.encode((blockNumber))));
     }
 }
