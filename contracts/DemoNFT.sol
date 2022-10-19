@@ -115,7 +115,7 @@ contract DemoNFT is ERC721 {
     /// @dev can be called for registration that happend during the healthy network time,
     /// but the network has switch into unhealthy state just 1 block later.
     /// This is a rare corner case, and might never show up in reality - but it is covered.
-    function moveUnhealthyMintRegistration(address _to) external {
+    function rescheduleUnhealthyMintRegistration(address _to) external {
         uint256 blockNumber = _mintingRegistryBlocks[_to];
         require(blockNumber != 0, "minting not registered");
         require(

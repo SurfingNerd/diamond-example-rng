@@ -131,28 +131,30 @@ describe("NFT", function () {
     }
   });
 
-  it("moving minting not possible if network is still unhealthy", async () => {
+  it("rescheduling minting not possible if network is still unhealthy", async () => {
     if (nft) {
       await expect(
-        nft.moveUnhealthyMintRegistration(nftReveiverAccount?.address!)
+        nft.rescheduleUnhealthyMintRegistration(nftReveiverAccount?.address!)
       ).revertedWith("network needs to be healthy");
     }
   });
 
-  it("moving minting possible if network becomes healthy", async () => {
+  it("rescheduling minting possible if network becomes healthy", async () => {
     if (nft) {
       await health?.setHealth(true);
-      await nft.moveUnhealthyMintRegistration(nftReveiverAccount?.address!);
+      await nft.rescheduleUnhealthyMintRegistration(
+        nftReveiverAccount?.address!
+      );
     }
   });
 
-  it("minting moved registrations is possible", async () => {
+  it("minting rescheduled registrations is possible", async () => {
     if (nft) {
       await nft.mintTo(nftReveiverAccount?.address!);
     }
   });
 
-  it("minting twice after moved registration is not possible", async () => {
+  it("minting twice after rescheduling registration is not possible", async () => {
     if (nft) {
       await expect(nft.mintTo(nftReveiverAccount?.address!)).revertedWith(
         "minting not registered"
@@ -160,11 +162,11 @@ describe("NFT", function () {
     }
   });
 
-  it("move minting not possible is the network is healthy", async () => {
+  it("rescheduling minting not possible is the network is healthy", async () => {
     if (nft) {
       await nft.registerMinting(nftReveiverAccount?.address!, registrationFee);
       await expect(
-        nft.moveUnhealthyMintRegistration(nftReveiverAccount?.address!)
+        nft.rescheduleUnhealthyMintRegistration(nftReveiverAccount?.address!)
       ).revertedWith("already healthy registered");
     }
   });
