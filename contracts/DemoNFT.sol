@@ -122,6 +122,7 @@ contract DemoNFT is ERC721 {
     function moveUnhealthyMintRegistration(address _to) external {
         
         uint256 blockNumber = _mintingRegistryBlocks[_to];
+        require(blockNumber != 0, "minting not registered");
         require(!networkHealthHbbft.isFullHealthHistoric(blockNumber), "already healthy registered");
         require(networkHealthHbbft.isFullHealth(), "network needs to be healthy");
         // move the registration to the next block - that should be healthy.
