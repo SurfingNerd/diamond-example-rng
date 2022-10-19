@@ -170,4 +170,13 @@ describe("NFT", function () {
       );
     }
   });
+
+  it("move minting not possible is the network is healthy", async () => {
+    if (nft) {
+      await nft.registerMinting(nftReveiverAccount?.address!, registration_fee);
+      await expect(
+        nft.moveUnhealthyMintRegistration(nftReveiverAccount?.address!)
+      ).revertedWith("already healthy registered");
+    }
+  });
 });
