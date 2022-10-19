@@ -14,18 +14,18 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const TestNFT = await ethers.getContractFactory("TestNFT");
+  const DemoNFT = await ethers.getContractFactory("DemoNFT");
 
   // todo: get address  from DMD network,
   // or deploy a new random contract.
   const rngContractAddress = "0x7000000000000000000000000000000000000001";
   const healthContractAddress = "0x1000000000000000000000000000000000000001";
 
-  const nft = await TestNFT.deploy(rngContractAddress, healthContractAddress);
+  const nft = await DemoNFT.deploy(rngContractAddress, healthContractAddress);
 
   await nft.deployed();
 
-  console.log("TestNFT deployed to:", nft);
+  console.log("DemoNFT deployed to:", nft);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
