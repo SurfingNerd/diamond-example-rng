@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
-import "./IRandomHbbft.sol";
+import "./interfaces/IRandomHbbft.sol";
 
 // This is a dummy implementation of the IRandomHbbft interface.
 // it can be used for developing and testing systems that rely on the HBBFT Random number system,
