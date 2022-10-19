@@ -32,8 +32,6 @@ contract DemoNFT is ERC721 {
     // block_number is the block number of the block where minting becomes possible.
     event MintRegistered(address indexed account, uint256 blockNumber);
 
-    event BlockHashEvent(bytes32 blockHash);
-
     constructor(address randomHbbftAddress, address networkHealthHbbftAddress)
         ERC721("DemoNFT", "DEMO")
     {
