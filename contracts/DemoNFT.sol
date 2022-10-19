@@ -128,6 +128,9 @@ contract DemoNFT is ERC721 {
         );
         // move the registration to the next block - that should be healthy.
         _mintingRegistryBlocks[_to] = block.number + 1;
+        
+        // emit MintRegistered event again, so automated services can react to it. 
+        emit MintRegistered(_to, block.number + 1);
     }
 
     /**
