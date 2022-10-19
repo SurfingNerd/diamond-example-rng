@@ -19,8 +19,9 @@ async function main() {
   // todo: get address  from DMD network,
   // or deploy a new random contract.
   const rngContractAddress = "0x7000000000000000000000000000000000000001";
+  const healthContractAddress = "0x1000000000000000000000000000000000000001";
 
-  const nft = await TestNFT.deploy();
+  const nft = await TestNFT.deploy(rngContractAddress, healthContractAddress);
 
   await nft.deployed();
 
