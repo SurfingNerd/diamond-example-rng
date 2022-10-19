@@ -152,20 +152,22 @@ describe("NFT", function () {
 
   it("moving minting possible if network becomes healthy", async () => {
     if (nft) {
-      health?.setHealth(true);
-      nft.moveUnhealthyMintRegistration(nftReveiverAccount?.address!);
+      await health?.setHealth(true);
+      await nft.moveUnhealthyMintRegistration(nftReveiverAccount?.address!);
     }
   });
 
   it("minting moved registrations is possible", async () => {
     if (nft) {
-      nft.mintTo(nftReveiverAccount?.address!);
+      await nft.mintTo(nftReveiverAccount?.address!);
     }
   });
 
-  // it("minting twice after moved registration is not possible", async () => {
-  //   if (nft) {
-  //     nft.mintTo(nftReveiverAccount?.address!);
-  //   }
-  // });
+  it("minting twice after moved registration is not possible", async () => {
+    if (nft) {
+      await expect(nft.mintTo(nftReveiverAccount?.address!)).revertedWith(
+        "minting not registered"
+      );
+    }
+  });
 });
