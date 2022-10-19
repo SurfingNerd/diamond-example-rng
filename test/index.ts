@@ -1,6 +1,7 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
+
 import {
   DemoNFT,
   DemoNFT__factory,
@@ -8,8 +9,8 @@ import {
   DummyRandomHbbft__factory,
   DummyNetworkHealthHbbft,
   DummyNetworkHealthHbbft__factory,
+  /* eslint-disable-next-line */
 } from "../typechain";
-import { DummyNetworkHealthHbbftInterface } from "../typechain/DummyNetworkHealthHbbft";
 
 describe("NFT", function () {
   let signers: SignerWithAddress[] | undefined;
@@ -21,7 +22,7 @@ describe("NFT", function () {
   let RNG: DummyRandomHbbft__factory | undefined;
   let HEALTH: DummyNetworkHealthHbbft__factory | undefined;
 
-  const registration_fee: { value: string } = { value: "1000000000000000000" };
+  const registrationFee: { value: string } = { value: "1000000000000000000" };
 
   before(async () => {
     signers = await ethers.getSigners();
@@ -64,14 +65,14 @@ describe("NFT", function () {
 
   it("registering minting should succeed if  enough minting fee is provided.", async () => {
     if (nft) {
-      await nft.registerMinting(main, registration_fee);
+      await nft.registerMinting(main, registrationFee);
     }
     // console.log("mintTX:", mintTX?.hash);
   });
 
   it("registering minting should fail if already registered.", async () => {
     if (nft) {
-      await expect(nft.registerMinting(main, registration_fee)).revertedWith(
+      await expect(nft.registerMinting(main, registrationFee)).revertedWith(
         "minting already registered"
       );
     }
@@ -80,7 +81,7 @@ describe("NFT", function () {
 
   it("minting should succeed if registered.", async () => {
     if (nft) {
-      const tx = await nft.mintTo(main);
+      await nft.mintTo(main);
       const tokenID = 1;
       const owner = await nft.ownerOf(tokenID);
       expect(owner).to.equal(main);
@@ -88,36 +89,24 @@ describe("NFT", function () {
       expect(tokenDna).not.to.equal(
         "0x0000000000000000000000000000000000000000000000000000000000000000"
       );
-
-      // const receipt = await tx.wait();
-      // receipt?.events?.forEach((event) => {
-      //   console.log(event.event, event.args);
-      // });
     }
-    // console.log("mintTX:", mintTX?.hash);
   });
 
   it("minting registration and minting for other accounts should be possible", async () => {
     if (nft && nftPayerAccount && nftServiceAccount) {
-      // console.log(nftPayerAccount);
       await nft
         .connect(nftPayerAccount)
-        .registerMinting(nftReveiverAccount?.address!, registration_fee);
+        .registerMinting(nftReveiverAccount?.address!, registrationFee);
 
-      const tx = await nft
-        .connect(nftServiceAccount)
-        .mintTo(nftReveiverAccount?.address!);
-
-      const receipt = await tx.wait();
+      await nft.connect(nftServiceAccount).mintTo(nftReveiverAccount?.address!);
 
       // reveiver have never sent a transaction.
       expect(
         await ethers.provider.getTransactionCount(nftReveiverAccount?.address!)
       ).to.equal(0);
 
+      // ... but it still owns an NFT.
       expect(await nft.ownerOf(2)).to.equal(nftReveiverAccount?.address!);
-
-      // it still owns an NFT.
     }
   });
 
@@ -126,7 +115,7 @@ describe("NFT", function () {
       await health?.setHealth(false);
 
       await expect(
-        nft.registerMinting(nftReveiverAccount?.address!, registration_fee)
+        nft.registerMinting(nftReveiverAccount?.address!, registrationFee)
       ).revertedWith("Service is currently paused");
     }
   });
@@ -134,7 +123,7 @@ describe("NFT", function () {
   it("minting not possible during unhealthy network state", async () => {
     if (nft && nftPayerAccount && nftServiceAccount) {
       await health?.setHealth(true);
-      await nft.registerMinting(nftReveiverAccount?.address!, registration_fee);
+      await nft.registerMinting(nftReveiverAccount?.address!, registrationFee);
       await health?.setHealth(false);
       await expect(nft.mintTo(nftReveiverAccount?.address!)).revertedWith(
         "No Healthy RNG on this Block"
@@ -173,7 +162,7 @@ describe("NFT", function () {
 
   it("move minting not possible is the network is healthy", async () => {
     if (nft) {
-      await nft.registerMinting(nftReveiverAccount?.address!, registration_fee);
+      await nft.registerMinting(nftReveiverAccount?.address!, registrationFee);
       await expect(
         nft.moveUnhealthyMintRegistration(nftReveiverAccount?.address!)
       ).revertedWith("already healthy registered");

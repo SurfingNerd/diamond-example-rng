@@ -20,5 +20,6 @@ module.exports = {
       "error",
       { ignores: ["modules"] },
     ],
+    camelcase: ["error", { allow: ["[a-zA-Z]+__factory"] }],
   },
 };
