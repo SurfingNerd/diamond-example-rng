@@ -9,12 +9,6 @@ import "./interfaces/IRandomHbbft.sol";
 // It provides deterministic random numbers, based on the block number, that can be used for testing.
 // The determinsticity
 contract DummyRandomHbbft is IRandomHbbft {
-    function currentSeed() external view override returns (uint256) {
-        // convert the block number to bytes32.
-
-        return uint256(keccak256(abi.encode(block.number)));
-    }
-
     function getSeedHistoric(uint256 blockNumber)
         external
         pure
