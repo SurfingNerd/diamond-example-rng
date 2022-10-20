@@ -120,9 +120,9 @@ contract DemoNFT is ERC721 {
         // get the RNG that has been written in the past. (including the same block, but the RNG transaction is the same)
         uint256 rng = randomHbbft.getSeedHistoric(blockNumber);
 
+        // store the salted rng as the DNA of the NFT. the salt makes sure that every minted NFT has a (cryptographic) unique DNA.
         tokenDna[newTokenId] = (keccak256(abi.encodePacked(rng, salt)));
-        // according to the rule of big numbers, rng + salt should realistically never overflow and be unique.
-
+        
         _incrementTokenId();
     }
 
