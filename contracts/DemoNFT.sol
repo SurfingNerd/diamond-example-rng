@@ -5,12 +5,15 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./interfaces/IRandomHbbft.sol";
 import "./interfaces/INetworkHealthHbbft.sol";
 
+/** @dev demonstrates an NFT using the Diamond Random System as an example.
+ */
 contract DemoNFT is ERC721 {
     uint256 private _currentTokenId = 0; //Token ID here will start from 1
 
     // salt value that is used uniquely for salting the rng for each minted nft.
     uint256 private _currentMintingRegistrySalt = 1;
 
+    // Fee that is required to be paid upfront for minting an NFT
     uint256 public mintingFee = 1 ether;
 
     // a minting registry holds the information about upcomming minting of nfts.
@@ -22,16 +25,27 @@ contract DemoNFT is ERC721 {
     // the salt is connected to _mintingRegistryBlocks and prevents manipulation of the rng
     mapping(address => uint256) private _mintingRegistrySalts;
 
+    // stored random number for each minted nft
     mapping(uint256 => bytes32) public tokenDna;
 
+    // Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
     IRandomHbbft public randomHbbft;
+
+    // Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
     INetworkHealthHbbft public networkHealthHbbft;
 
-    // mint registered event,
-    // emitted when a minting is registered
-    // block_number is the block number of the block where minting becomes possible.
+    /** @dev mint registered event,
+     * emitted when a minting is registered
+     * block_number is the block number of the block where minting becomes possible.
+     * @param account the account that registered the minting
+     * @param blockNumber the block number of the block where minting becomes possible.
+     */
     event MintRegistered(address indexed account, uint256 blockNumber);
 
+    /** @dev constructor for the DemoNFT contract
+     * @param randomHbbftAddress IRandomHbbft address. Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
+     * @param networkHealthHbbftAddress INetworkHealthHbbft address. Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
+     */
     constructor(address randomHbbftAddress, address networkHealthHbbftAddress)
         ERC721("DemoNFT", "DEMO")
     {
@@ -112,9 +126,12 @@ contract DemoNFT is ERC721 {
         _incrementTokenId();
     }
 
-    /// @dev can be called for registration that happend during the healthy network time,
-    /// but the network has switch into unhealthy state just 1 block later.
-    /// This is a rare corner case, and might never show up in reality - but it is covered.
+    /** @dev can be called for registration that happend during the healthy network time,
+     * but the network has switch into unhealthy state just 1 block later.
+     * This is a rare corner case, and might never show up in reality - but it is covered.
+     * it reschedules the given minting registration to the next block in the unlucky situation
+     * that the network has switched into unhealthy state just 1 block after registration of the minting.
+     */
     function rescheduleUnhealthyMintRegistration(address _to) external {
         uint256 blockNumber = _mintingRegistryBlocks[_to];
         require(blockNumber != 0, "minting not registered");
@@ -128,8 +145,8 @@ contract DemoNFT is ERC721 {
         );
         // move the registration to the next block - that should be healthy.
         _mintingRegistryBlocks[_to] = block.number + 1;
-        
-        // emit MintRegistered event again, so automated services can react to it. 
+
+        // emit MintRegistered event again, so automated services can react to it.
         emit MintRegistered(_to, block.number + 1);
     }
 
