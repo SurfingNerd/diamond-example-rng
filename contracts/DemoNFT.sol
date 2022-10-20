@@ -106,19 +106,19 @@ contract DemoNFT is ERC721 {
             "No Healthy RNG on this Block"
         );
 
-        // clear the minting registry for this sender.
-        _mintingRegistryBlocks[_to] = 0;
-        _mintingRegistrySalts[_to] = 0;
-
-        uint256 newTokenId = _getNextTokenId();
-        _safeMint(_to, newTokenId);
-
         // the salt makes sure that registered mints for the same block do not result in the same DNA.
         // every salt is only used once.
         uint256 salt = _mintingRegistrySalts[_to];
 
         // get the RNG that has been written in the past. (including the same block, but the RNG transaction is the same)
         uint256 rng = randomHbbft.getSeedHistoric(blockNumber);
+
+        // clear the minting registry for this sender.
+        _mintingRegistryBlocks[_to] = 0;
+        _mintingRegistrySalts[_to] = 0;
+
+        uint256 newTokenId = _getNextTokenId();
+        _safeMint(_to, newTokenId);
 
         // store the salted rng as the DNA of the NFT. the salt makes sure that every minted NFT has a (cryptographic) unique DNA.
         tokenDna[newTokenId] = (keccak256(abi.encodePacked(rng, salt)));
