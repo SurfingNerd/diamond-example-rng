@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./interfaces/IRandomHbbft.sol";
 import "./interfaces/INetworkHealthHbbft.sol";
 
-/** @dev demonstrates an NFT using the Diamond Random System as an example.
+/** @dev demonstrates an NFT using the Diamond Randomness System as an example.
  */
 contract DemoNFT is ERC721 {
     uint256 private _currentTokenId = 0; //Token ID here will start from 1

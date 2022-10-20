@@ -1,7 +1,7 @@
 {
   "name": "diamond-example-rng",
   "version": "1.0.0",
-  "description": "example project for using the HBBFT Random Number System of the Diamond Blockchain (v4)",
+  "description": "example NFT project for using the Diamond Randomness System of the Diamond Blockchain (v4)",
   "main": "index.js",
   "scripts": {
     "compile": "npx hardhat compile",

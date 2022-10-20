@@ -4,7 +4,7 @@ One of the strengths of the Diamond Network is the cooperative consensus algorit
 those random number is not predictable by the network validators, as well not the inclusion and order of transactions. This solves a lot of problems for smart contracts that rely on on chain randomness.
 
 This project contains the DemoNFT contract, that uses the Random System, 2 Interfaces that are required to interact with
-the Diamond Random System, that is stored on the Diamond Blockchain and used by the diamond-node during the HBBFT Consensus.
+the Diamond Randomness System, that is stored on the Diamond Blockchain and used by the diamond-node during the HBBFT Consensus.
 
 For Testing purposes there are Mock Implementations for those 2 interfaces.
 
