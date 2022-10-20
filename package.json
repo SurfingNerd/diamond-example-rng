@@ -1,14 +1,14 @@
 {
   "name": "diamond-example-rng",
   "version": "1.0.0",
-  "description": "",
+  "description": "example project for using the HBBFT Random Number System of the Diamond Blockchain (v4)",
   "main": "index.js",
   "scripts": {
     "compile": "npx hardhat compile",
     "test": "npx hardhat test"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "thomashaller@gmx.at",
+  "license": "MIT",
   "dependencies": {
     "@openzeppelin/contracts": "^4.6.0",
     "hardhat": "^2.9.6"
