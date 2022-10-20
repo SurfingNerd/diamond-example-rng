@@ -122,7 +122,7 @@ contract DemoNFT is ERC721 {
 
         // store the salted rng as the DNA of the NFT. the salt makes sure that every minted NFT has a (cryptographic) unique DNA.
         tokenDna[newTokenId] = (keccak256(abi.encodePacked(rng, salt)));
-        
+
         _incrementTokenId();
     }
 
