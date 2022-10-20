@@ -1,4 +1,4 @@
-# Diamond Random Value Seeds
+# Diamond Randomness System Demo NFT
 
 One of the strengths of the Diamond Network is the cooperative consensus algorithm, that provide a random number as first transaction in each block,
 those random number is not predictable by the network validators, as well not the inclusion and order of transactions. This solves a lot of problems for smart contracts that rely on on chain randomness.
