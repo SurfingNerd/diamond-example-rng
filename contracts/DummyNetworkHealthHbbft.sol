@@ -2,7 +2,7 @@
 pragma solidity 0.8.17;
 import "./interfaces/INetworkHealthHbbft.sol";
 
-contract DummyNetworkHealthHbbft is INetworkHealthHbbft {
+contract MockNetworkHealthHbbft is INetworkHealthHbbft {
     //indexed access to historic health values
     //the burden of inefficient value lookups has
     // been taken to keep tests simple.

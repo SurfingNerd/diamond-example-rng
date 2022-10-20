@@ -5,10 +5,10 @@ import { ethers } from "hardhat";
 import {
   DemoNFT,
   DemoNFT__factory,
-  DummyRandomHbbft,
-  DummyRandomHbbft__factory,
-  DummyNetworkHealthHbbft,
-  DummyNetworkHealthHbbft__factory,
+  MockRandomHbbft,
+  MockRandomHbbft__factory,
+  MockNetworkHealthHbbft,
+  MockNetworkHealthHbbft__factory,
   /* eslint-disable-next-line */
 } from "../typechain";
 
@@ -19,8 +19,8 @@ describe("NFT", function () {
   let nftReveiverAccount: SignerWithAddress | undefined;
   let nftServiceAccount: SignerWithAddress | undefined;
   let NFT: DemoNFT__factory | undefined;
-  let RNG: DummyRandomHbbft__factory | undefined;
-  let HEALTH: DummyNetworkHealthHbbft__factory | undefined;
+  let RNG: MockRandomHbbft__factory | undefined;
+  let HEALTH: MockNetworkHealthHbbft__factory | undefined;
 
   const registrationFee: { value: string } = { value: "1000000000000000000" };
 
@@ -31,13 +31,13 @@ describe("NFT", function () {
     nftReveiverAccount = signers[2];
     nftServiceAccount = signers[3];
     NFT = await ethers.getContractFactory("DemoNFT");
-    RNG = await ethers.getContractFactory("DummyRandomHbbft");
-    HEALTH = await ethers.getContractFactory("DummyNetworkHealthHbbft");
+    RNG = await ethers.getContractFactory("MockRandomHbbft");
+    HEALTH = await ethers.getContractFactory("MockNetworkHealthHbbft");
   });
 
-  let rng: DummyRandomHbbft | undefined;
+  let rng: MockRandomHbbft | undefined;
   let nft: DemoNFT | undefined;
-  let health: DummyNetworkHealthHbbft | undefined;
+  let health: MockNetworkHealthHbbft | undefined;
 
   it("deploy contract", async function () {
     rng = await RNG?.deploy();

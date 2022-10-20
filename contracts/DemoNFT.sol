@@ -28,10 +28,10 @@ contract DemoNFT is ERC721 {
     // stored random number for each minted nft
     mapping(uint256 => bytes32) public tokenDna;
 
-    // Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
+    // Mock Implementation for tests, Diamond Contracts for diamond-node networks.
     IRandomHbbft public randomHbbft;
 
-    // Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
+    // Mock Implementation for tests, Diamond Contracts for diamond-node networks.
     INetworkHealthHbbft public networkHealthHbbft;
 
     /** @dev mint registered event,
@@ -43,8 +43,8 @@ contract DemoNFT is ERC721 {
     event MintRegistered(address indexed account, uint256 blockNumber);
 
     /** @dev constructor for the DemoNFT contract
-     * @param randomHbbftAddress IRandomHbbft address. Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
-     * @param networkHealthHbbftAddress INetworkHealthHbbft address. Dummy Implementation for tests, Diamond Contracts for diamond-node networks.
+     * @param randomHbbftAddress IRandomHbbft address. Mock Implementation for tests, Diamond Contracts for diamond-node networks.
+     * @param networkHealthHbbftAddress INetworkHealthHbbft address. Mock Implementation for tests, Diamond Contracts for diamond-node networks.
      */
     constructor(address randomHbbftAddress, address networkHealthHbbftAddress)
         ERC721("DemoNFT", "DEMO")
