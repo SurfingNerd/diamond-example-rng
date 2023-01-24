@@ -6,6 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import fs from "fs";
 
 dotenv.config();
 
@@ -30,13 +31,34 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+    alpha: {
+      url: "http://38.242.206.145:8540",
+      accounts: {
+        mnemonic:  fs.readFileSync(".mnemonic").toString().trim(),
+        path: "m/44'/60'/0'/0",
+        initialIndex: 0,
+        count: 20,
+        passphrase: "",
+      },
+    }
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    // apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: "123",
+    customChains: [
+      {
+        network: "alpha",
+        chainId: 777012,
+        urls: {
+          apiURL: "http://explorer.uniq.diamonds/api",
+          browserURL: "http://explorer.uniq.diamonds"
+        }
+      }
+    ]
   },
 };
 
