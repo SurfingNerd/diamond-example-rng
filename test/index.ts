@@ -41,7 +41,9 @@ describe("NFT", function () {
 
   it("deploy contract", async function () {
     rng = await RNG?.deploy();
+    await rng?.deployed();
     health = await HEALTH?.deploy();
+    await health?.deployed();
     nft = await NFT?.deploy(rng?.address!, health?.address!);
     await nft?.deployed();
   });
