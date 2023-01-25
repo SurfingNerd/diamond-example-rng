@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "compile": "npx hardhat compile",
-    "deploy-on-alpha": "./node_modules/.bin/truffle  deploy --network=alpha",
-    "test": "npx hardhat test"
+    "deploy-on-alpha": "npx ts-node scripts/deploy.ts --network alpha",
+    "test": "npx hardhat test",
+    "test-on-alpha": "npx hardhat test --network alpha test-dmd/index.ts"
   },
   "author": "thomashaller@gmx.at",
   "license": "MIT",
