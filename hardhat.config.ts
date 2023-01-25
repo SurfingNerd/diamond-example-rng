@@ -23,6 +23,16 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const getMnemonic = () => {
+  try {
+    return fs.readFileSync(".mnemonic").toString().trim()
+  } catch {
+    // this is a dummy mnemonic
+    return "rival month fortune";
+  }
+}
+
+
 const config: HardhatUserConfig = {
   solidity: "0.8.17",
   networks: {
@@ -34,7 +44,7 @@ const config: HardhatUserConfig = {
     alpha: {
       url: "http://38.242.206.145:8540",
       accounts: {
-        mnemonic:  fs.readFileSync(".mnemonic").toString().trim(),
+        mnemonic:  getMnemonic(),
         path: "m/44'/60'/0'/0",
         initialIndex: 0,
         count: 20,
