@@ -30,6 +30,15 @@ async function main() {
 
   // verify on blockscout.
 
+  function sleep(milliseconds: number) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  }
+
+  console.log("waiting for 10 seconds for blockscout to index the contract...");
+  await sleep(10000);
+  console.log("done waiting. verifying contract...");
+
+
 
   await hre.run("verify:verify", {
     address:  nft.address,
