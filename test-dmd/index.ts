@@ -54,6 +54,14 @@ describe("NFT", function () {
     console.log(`Network is healthy: ${network_currently_healthy}`, );
   });
 
+  it("minting not possible during unhealthy network state", async () => {
+    if (nft && nftPayerAccount && nftServiceAccount) {
+      await nft.registerMinting(nftReveiverAccount?.address!, registrationFee);
+      await expect(nft.mintTo(nftReveiverAccount?.address!)).revertedWith(
+        "No Healthy RNG on this Block"
+      );
+    }
+  });
 
   
 
