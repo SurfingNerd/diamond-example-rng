@@ -7,7 +7,8 @@
     "compile": "npx hardhat compile",
     "deploy-on-alpha": "npx ts-node scripts/deploy.ts --network alpha",
     "test": "npx hardhat test",
-    "test-on-alpha": "npx hardhat test --network alpha test-dmd/index.ts"
+    "test-on-alpha": "npx hardhat test --network alpha test-dmd/index.ts",
+    "mint-on-alpha": "npx ts-node scripts/execute_mint.ts --network alpha"
   },
   "author": "thomashaller@gmx.at",
   "license": "MIT",
